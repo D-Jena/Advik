@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+	"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+	<!-- template-outside-layout -->
+	<definition name="template-def" template="/WEB-INF/views/layout/default/defaultLayout.jsp">
+		<put-attribute name="header" value="/WEB-INF/views/layout/default/header.jsp" />
+		<put-attribute name= "body" value="" />
+		<put-attribute name="footer" value="/WEB-INF/views/layout/default/footer.jsp" />
+	</definition>
+
+  	<definition name="layout.base" template="/WEB-INF/views/layout/baselayout.jsp">
+        <put-attribute name="header" value="/WEB-INF/views/layout/header.jsp" />
+        <put-attribute name="menu" value="/WEB-INF/views/menu.jsp" />
+        <put-attribute name="body" value="" />
+        <put-attribute name="footer" value="/WEB-INF/views/layout/footer.jsp" />
+        <put-attribute name="pageScripts" value=" " />
+    </definition>
+    
+    <definition name="template-blank" template="/WEB-INF/views/layout/blankLayout.jsp">
+		<put-attribute name="body" value="" />
+	</definition>
+	
+	<definition name="error.layout" template="/WEB-INF/views/layout/errorLayout.jsp">
+		<put-attribute name="title" value="kaushalya" />
+		<put-attribute name="body" value="" />
+	</definition>
+    
+    <definition name="layout.login" template="/WEB-INF/views/login.jsp"></definition>
+    <definition name="site.session.timeout" template="/WEB-INF/views/nosession.jsp"></definition>
+    <definition name="site.privacy.policy" template="/WEB-INF/views/privacyPolicy.jsp"></definition>
+    
+    
+   
+	  
+    <!-- ================================ ERROR CONFIGURATION ====================================================== -->
+     
+    <definition name="site.unauthorizedError" extends="error.layout">
+		<put-attribute name="body" value="/WEB-INF/views/error/unauthorizedError.jsp" />
+	</definition>
+	
+	<definition name="site.accessdenied" extends="error.layout">
+		<put-attribute name="body" value="/WEB-INF/views/error/403.jsp" />
+	</definition>
+
+	<definition name="site.defaultError" extends="error.layout">
+		<put-attribute name="body" value="/WEB-INF/views/error/400.jsp" />
+	</definition>
+
+	<definition name="site.400" extends="error.layout">
+		<put-attribute name="body" value="/WEB-INF/views/error/400.jsp" />
+	</definition> 
+	
+	 <definition name="site.401" extends="error.layout">
+		<put-attribute name="body" value="/WEB-INF/views/error/401.jsp" />
+	</definition> 
+	
+	<definition name="site.403" extends="error.layout">
+		<put-attribute name="body" value="/WEB-INF/views/error/403.jsp" />
+	</definition> 
+	
+	<definition name="site.404" extends="error.layout">
+		<put-attribute name="body" value="/WEB-INF/views/error/404.jsp" />
+	</definition> 
+	
+	<definition name="site.405" extends="error.layout">
+		<put-attribute name="body" value="/WEB-INF/views/error/405.jsp" />
+	</definition> 
+	
+	<definition name="site.500" extends="error.layout">
+		<put-attribute name="body" value="/WEB-INF/views/error/500.jsp" />
+	</definition> 
+	
+	<definition name="site.503" extends="error.layout">
+		<put-attribute name="body" value="/WEB-INF/views/error/503.jsp" />
+	</definition> 
+	
+	<definition name="site.unknownError" extends="error.layout">
+		<put-attribute name="body" value="/WEB-INF/views/error/unknownError.jsp" /> 
+	</definition> 
+	<!-- ================================ ERROR CONFIGURATION ENDS ================================================	 -->
+   
+    <!-- ======================================= Excel Bulk Upload Session =================================-->
+
+     <definition name="excel.file.upload" extends="layout.base">
+        <put-attribute name="body" value="/WEB-INF/views/ExcelFile/uploadExcelFile.jsp"></put-attribute>
+    </definition>
+    
+    <definition name="file.excelUpload.show" extends="layout.base">
+        <put-attribute name="body" value="/WEB-INF/views/ExcelFile/uploadExcelFileView.jsp"></put-attribute>
+    </definition>
+    
+     <definition name="excel.file.edit" extends="layout.base">
+        <put-attribute name="body" value="/WEB-INF/views/ExcelFile/editUploadedExcelFileView.jsp"></put-attribute>
+    </definition>
+
+<!-- ###################################################################################################### -->
+<!-- ##################################### ADVIC DEVINE AAP ############################################### -->
+<!-- ###################################################################################################### -->	
+	
+	<definition name="site.home" extends="layout.base">
+		<put-attribute name="body"
+			value="/WEB-INF/views/advicHome/advicHome.jsp"></put-attribute>
+	</definition>
+	
+ <!-- ======================================= masters =================================-->
+	
+	<definition name="site.addDistrict" extends="layout.base">
+		<put-attribute name="body"
+			value="/WEB-INF/views/Masters/addDistrict.jsp"></put-attribute>
+	</definition>
+	<definition name="site.addBlock" extends="layout.base">
+		<put-attribute name="body"
+			value="/WEB-INF/views/Masters/addBlock.jsp"></put-attribute>
+	</definition>
+	<definition name="site.addVillage" extends="layout.base">
+		<put-attribute name="body"
+			value="/WEB-INF/views/Masters/addVillage.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="site.districtList" extends="layout.base">
+		<put-attribute name="body"
+			value="/WEB-INF/views/Masters/districtList.jsp"></put-attribute>
+	</definition>
+	<definition name="site.blockList" extends="layout.base">
+		<put-attribute name="body"
+			value="/WEB-INF/views/Masters/blockList.jsp"></put-attribute>
+	</definition>
+	<definition name="site.villageList" extends="layout.base">
+		<put-attribute name="body"
+			value="/WEB-INF/views/Masters/villageList.jsp"></put-attribute>
+	</definition>
+	<definition name="site.addFinancialYr" extends="layout.base">
+		<put-attribute name="body"
+			value="/WEB-INF/views/Masters/addFinancialYr.jsp"></put-attribute>
+	</definition>
+	
+	<!-- ======================================= Customer =================================-->
+	<definition name="site.addCustomer" extends="layout.base">
+		<put-attribute name="body"
+			value="/WEB-INF/views/customer/addCustomer.jsp"></put-attribute>
+	</definition>
+	
+	
+	<!-- ======================================= Product =================================-->
+	<definition name="site.productHome" extends="layout.base">
+		<put-attribute name="body"
+			value="/WEB-INF/views/product/productHome.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="site.productConfig" extends="layout.base">
+		<put-attribute name="body"
+			value="/WEB-INF/views/product/productConfig.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="site.brandConfig" extends="layout.base">
+		<put-attribute name="body"
+			value="/WEB-INF/views/product/brandConfig.jsp"></put-attribute>
+	</definition>
+	
+	<!-- ======================================= Vendor =================================-->
+	<definition name="site.addVendor" extends="layout.base">
+		<put-attribute name="body"
+			value="/WEB-INF/views/vendor/addVendor.jsp"></put-attribute>
+	</definition>
+	
+	<!-- ======================================= Sale =================================-->
+	<definition name="site.addSale" extends="layout.base">
+		<put-attribute name="body"
+			value="/WEB-INF/views/saleProduct/addSale.jsp"></put-attribute>
+	</definition>
+
+	<definition name="site.addReward" extends="layout.base">
+		<put-attribute name="body"
+			value="/WEB-INF/views/saleProduct/addReward.jsp"></put-attribute>
+	</definition>
+	
+</tiles-definitions>
+
+
+
+
+	

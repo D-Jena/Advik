@@ -1,0 +1,94 @@
+.report-table {
+    /* position: absolute; */
+    margin: 1% 0%;
+    font-family: sans-serif;
+    -webkit-transform: translate(0%, 0%);
+    /* transform: translate(0%, 0%); */
+    background: rgb(224, 236, 178);
+}
+
+.tablee {
+    width: 100%;
+   /*  margin-bottom: 20px; */
+    text-align:center;
+}
+
+.district{
+	text-align: left;
+}
+
+.gp{
+	text-align: left;
+}
+
+table {  
+  border-collapse: collapse;
+  overflow: hidden;
+  box-shadow: 0 0 0px rgba(85, 85, 85, 0.76);  
+}
+
+th,
+td {
+  
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #000000;
+    border: solid 1px rgba(0, 0, 0, 0.09);
+    font-weight: bold;
+	/* text-transform: uppercase; */
+	vertical-align:middle;
+	font-size: 12px;
+}
+th {
+  text-align: center;
+  text-align: -webkit-center;
+  vertical-align:middle;
+}
+
+thead th {
+  background-color: #4d8a90;
+    border: solid 1px rgb(207, 186, 156);
+    color: #fff;
+    text-transform: none;
+	vertical-align:middle;
+	padding: 6px;
+}
+tbody tr:hover {
+  background-color: rgba(145, 198, 146, 0.34);
+
+}
+
+tbody td {
+  position: relative;
+  text-transform: uppercase;
+  
+}
+tbody td:hover:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -9999px;
+  bottom: -9999px;  
+  background-color: rgba(145, 198, 146, 0.34); 
+  z-index: -1;
+  
+}
+
+tfoot th{
+	font-size: x-large;
+}
+
+.tg-lqy6{
+	text-align: left;
+	padding-left: 2px;
+}
+
+.tg-rqy6{
+	text-align: right;
+	padding-right: 2px;
+}
+
+.text{
+	text-align: left;
+	padding-left: 6px;
+}
