@@ -89,12 +89,12 @@ public class MasterController {
 	@GetMapping("/village")
     public String villagePage(Model model) {
     	model.addAttribute("villageList", villageService.getAllVillage());
-    	model.addAttribute("distlst", districtService.getAllDist());
+    	model.addAttribute("distlist", districtService.getAllDist());
     	return"site.addVillage";
     }
     
     @PostMapping("/saveNupdateVillage")
-    public String saveVillage(@ModelAttribute("VillageModel") VillageModel vm,RedirectAttributes attr) {
+    public String saveVillage(VillageModel vm,RedirectAttributes attr) {
     	String result = villageService.saveNupdateVillage(vm);
     	attr.addFlashAttribute("success_msg",result);
     	return"redirect:/mst/village";
@@ -103,7 +103,7 @@ public class MasterController {
     @GetMapping("/villageEdit")
 	public String villageEdit(@RequestParam("id") Long id,RedirectAttributes attr) {
     	VillageModel v = villageService.getVillageModel(id);
-		attr.addFlashAttribute("vm", v);
+		attr.addFlashAttribute("villageData", v);
 		attr.addFlashAttribute("blockList", blockService.getBlocksByDistId(v.getDistId()));
 		return "redirect:/mst/village";
 	}

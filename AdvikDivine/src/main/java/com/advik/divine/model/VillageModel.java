@@ -1,6 +1,5 @@
 package com.advik.divine.model;
 
-import com.advik.divine.entity.Block;
 
 import lombok.Data;
 
@@ -14,5 +13,5 @@ public class VillageModel {
 	private String blockName;
 	private Long distId;
 	private String distName;
-	private Block block;
+	private BlockModel blockModel;
 }

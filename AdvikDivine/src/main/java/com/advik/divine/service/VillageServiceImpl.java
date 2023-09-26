@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import com.advik.divine.entity.Block;
 import com.advik.divine.entity.VillageEntity;
 import com.advik.divine.exception.AdvikDivineException;
+import com.advik.divine.model.BlockModel;
+import com.advik.divine.model.DistrictModel;
 import com.advik.divine.model.VillageModel;
 import com.advik.divine.repository.BlockRepository;
 import com.advik.divine.repository.VillageRepository;
@@ -60,7 +62,12 @@ public class VillageServiceImpl implements VillageService{
 			List<VillageEntity> vlgList = villageRepository.findAll();
 			return vlgList.stream().map(vlg -> {
 				VillageModel vm = new VillageModel();
+				BlockModel blockModel = new BlockModel();
+				blockModel.setDistrictModel(new DistrictModel());
+				vm.setBlockModel(blockModel);
 				BeanUtils.copyProperties(vlg, vm);
+				BeanUtils.copyProperties(vlg.getBlock(), vm.getBlockModel());
+				BeanUtils.copyProperties(vlg.getBlock().getDistrict(), vm.getBlockModel().getDistrictModel());
 				return vm;
 			}).collect(Collectors.toList());
 		} catch (Exception e) {
@@ -78,6 +85,7 @@ public class VillageServiceImpl implements VillageService{
 			if(vlg.isPresent()) {
 				BeanUtils.copyProperties(vlg.get(), vm);
 				vm.setDistId(vlg.get().getBlock().getDistrict().getDistId());
+				vm.setBlockId(vlg.get().getBlock().getBlockId());
 			}
 			return vm;
 		} catch (Exception e) {
@@ -89,8 +97,11 @@ public class VillageServiceImpl implements VillageService{
 
 	@Override
 	public String checkVillagePresent(String villageName) {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<VillageEntity> optional = villageRepository.findByVillageName(villageName);
+		if (optional.isPresent()) {
+			return "yes";
+		}
+		return "no";
 	}
 
 }

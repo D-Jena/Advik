@@ -119,14 +119,14 @@
 										<div class="row">
 											<div class="col text-center mt-3">
 												<c:choose>
-													<c:when test="${not empty villageData}">
-														<input type="button" name="add&ManageApplicationScheme" value="Update" id="addManageApplicationSchemes" class="btn btn-success btn-sm" onclick="submitFormData()">&nbsp;&nbsp;
-														<a href="${contextPath}/mst/demography/village" type="button" class="btn btn-danger btn-sm">Back</a>
+													<c:when test="${not empty vendorData}">
+														<input type="button" name="add&ManageVendor" value="Update" id="add&ManageVendor" class="btn btn-success btn-sm" onclick="submitFormData()">&nbsp;&nbsp;
+														<a href="${contextPath}/home/" type="button" class="btn btn-danger btn-sm">Back</a>
 														
 													</c:when>
 												<c:otherwise>
-													<input type="button" name="add&ManageApplicationScheme" value="Submit" id="addManageApplicationSchemes" class="btn btn-success btn-sm" onclick="submitFormData()" >&nbsp;&nbsp;
-														<a href="${contextPath}/home" type="button" class="btn btn-danger btn-sm">Back</a>
+													<input type="button" name="add&ManageVendor" value="Submit" id="add&ManageVendor" class="btn btn-success btn-sm" onclick="submitFormData()" >&nbsp;&nbsp;
+														<a href="${contextPath}/home/" type="button" class="btn btn-danger btn-sm">Back</a>
 														<button type="reset" class="btn btn-warning btn-sm">Reset</button>
 														
 												</c:otherwise>
@@ -203,9 +203,7 @@
 		var districtName=$("#filterdistrictId").val();
 		
 		var blockName=$("#filterblockId").val();
-		
-		var gpName=$("#filtergpId").val();
-		
+				
 		var villageName=$("#villageIdTxt").val();
 		
 		if(stateName==""|| stateName=="0"){
@@ -235,8 +233,8 @@
 		}else{	
 		bootbox.confirm("Do You  Want To Continue?", function(result) {
 					if (result) {
-						$("#addManageApplicationSchemes").prop('disabled', true);
-						$("#addVillageFrm").submit();
+						$("#add&ManageVendor").prop('disabled', true);
+						$("#addVendorFrm").submit();
 					}
 				});
 			}

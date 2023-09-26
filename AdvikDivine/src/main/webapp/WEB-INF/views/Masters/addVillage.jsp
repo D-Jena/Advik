@@ -31,14 +31,14 @@
 										<c:when test="${not empty villageData.villageId}">
 										<h4 class="card-title">Update Village</h4></c:when>
 										<c:otherwise>
-										<h4 class="card-title">Add Village</h4>
+										<h4 class="card-title">Add New Village</h4>
 										</c:otherwise>
 									</c:choose> 
 								</div>
 								<div class="card-body">
 									<form action="${contextPath}/mst/saveNupdateVillage" id="addVillageFrm"	method="post">
 											<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-												<input type="hidden" name="villageId" value="${vm.villageId }"  />
+												<input type="hidden" name="villageId" value="${villageData.villageId }"  />
 									<div class="row">
 										<div class="col-md-3">
 											<div class="form-group">
@@ -46,8 +46,8 @@
 												<div class="col-sm-12">
 													<select name="distId" id="distId" class="form-control form-control-sm" required="required" onchange="getBlockByDistrictId(this.value)">
 													<option value="" >Select district</option>
-													<c:forEach items="${distlst}" var="dist">
-														<option value="${dist.distId}" ${dist.distId eq vm.distId ?'selected':'' }>${dist.distName}</option>
+													<c:forEach items="${distlist}" var="dist">
+														<option value="${dist.distId}" ${dist.distId eq villageData.distId ?'selected':'' }>${dist.distName}</option>
 													</c:forEach>
 						                            </select>
 												</div>
@@ -62,7 +62,7 @@
 													        <select name="blockId" id="blockId" class="form-control form-control-sm" required="required">
 													            <option value="0">Select</option>
 													            <c:forEach items="${blockList}" var="blc">
-													                <option value="${blc.blockId}" ${blc.blockId eq vm.block.blockId ? 'selected' : ''}>${blc.blockName}</option>
+													                <option value="${blc.blockId}" ${blc.blockId eq villageData.blockId ? 'selected' : ''}>${blc.blockName}</option>
 													            </c:forEach>
 													        </select>
 													    </c:when>
@@ -79,7 +79,7 @@
 												<div class="form-group">
 													<label class="col-sm-12 required" for="text">Village :</label>
 													<div class="col-sm-12">
-														<input type="text" class="form-control AlphaNumericOnly" id="villageName" name="villageName" value="${vm.villageName}"  onchange="checkSpaces(this)" required maxlength="50">
+														<input type="text" class="form-control AlphaNumericOnly" id="villageName" name="villageName" value="${villageData.villageName}"  onchange="checkSpaces(this)" required maxlength="50">
 													</div>
 												</div>
 										</div>
@@ -87,8 +87,8 @@
 											<div class="form-group">
 												<label class="col-md-10 required" for="isActive">Status</label>
 												<div class="col-md-10">
-													<input type="radio" value="true" id="isActive1" name="isActive" ${vm.isActive eq true ?'checked':''} required="required"> Active &nbsp;&nbsp;
-													<input type="radio" value="false" id="isActive2"  name="isActive" ${vm.isActive eq false ?'checked':''} required="required"> Inactive 
+													<input type="radio" value="true" id="isActive1" name="isActive" ${villageData.isActive eq true ?'checked':''} required="required"> Active &nbsp;&nbsp;
+													<input type="radio" value="false" id="isActive2"  name="isActive" ${villageData.isActive eq false ?'checked':''} required="required"> Inactive 
 												</div> 
 											</div>
 										</div> 
@@ -115,7 +115,6 @@
 						</div>
 					</div>
 				</div>
-					<c:if test="${empty  villageData}">
 					<div class="row mt-3">
 						<div class="col-md-12">
 							<div class="card full-height">
@@ -139,8 +138,8 @@
 											 		<c:forEach items="${villageList}" var="vil" varStatus="count">
 														<tr>
 														    <td>${count.count}</td>
-														    <td>N/A wip </td>
-														    <td>N/A wip</td>
+														    <td>${vil.blockModel.districtModel.distName}</td>
+														    <td>${vil.blockModel.blockName}</td>
 														    <td>${vil.villageName}</td>
 														    <td>${vil.isActive eq true ? 'Active': 'InActive'}</td>
 															<td>
@@ -158,7 +157,6 @@
 							</div>
 						</div>
 					</div>
-					</c:if>
 					</div>
 					
 				</div>
@@ -203,7 +201,6 @@
 	} 
 	
 	function editById(id){
-		debugger;
 		$("#id").val(id)
 	    $("#formId").attr('action','${contextPath}/mst/villageEdit');
 	    $("#formId").submit();

@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,18 +26,17 @@ public class CommonController {
 	@GetMapping("/vendor")
 	public String vendorPage(Model model) {
 		model.addAttribute("stateList", commonService.getAllState());
-    	model.addAttribute("vendorList", commonService.getAllVendor());
-    	model.addAttribute("vendor", new VendorModel());
+//    	model.addAttribute("vendorList", commonService.getAllVendor());
 		return"site.addVendor";
 	}
 	
 	@PostMapping("/addNupdateVendor")
-    public String handleSbmtBtn(@ModelAttribute("vendor") VendorModel vendorModel, RedirectAttributes attr) {
-    	String result = commonService.addOrUpdateVendor(vendorModel);
+    public String handleSbmtBtn(VendorModel vendor, RedirectAttributes attr) {
+    	String result = commonService.addOrUpdateVendor(vendor);
     	if(result != null)
     		attr.addFlashAttribute("success_msg", result);
     	else 
-    		attr.addFlashAttribute("error_msg", "Failed to add block.");
+    		attr.addFlashAttribute("error_msg", "Failed to add Vendor.");
     	
     	return "redirect:/common/vendor";
     }
