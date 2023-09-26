@@ -14,6 +14,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.advik.divine.entity.ProductTypeConfig;
 import com.advik.divine.service.ProductConfigService;
 
+/*
+ * This controller is meant for how many variety of product is maintained
+ * 
+ * */
+
 @Controller
 @RequestMapping("/prodConfig")
 public class ProductConfigController {
@@ -44,4 +49,28 @@ public class ProductConfigController {
 	public @ResponseBody String checkDuplicateProdType(@RequestParam("type")String type) {
 		return productConfigService.checkDuplicateType(type);
 	}
+	
+	@GetMapping("/config")
+	public String brandConfigPage(Model model) {
+		model.addAttribute("prodTypeList", productConfigService.getAllProductType());
+		return"site.productConfiguration";
+	}
+	@PostMapping("/saveConfig")
+	public String saveNupdateBrand(ProductTypeConfig ptc,RedirectAttributes attr) {
+		String result = productConfigService.saveproductType(ptc);
+		attr.addFlashAttribute("success_msg", result);
+		return"redirect:/prodConfig/";
+	}
+	
+	@GetMapping("/editConfig/{id}")
+	public String editBrand(@PathVariable("id")Long id,RedirectAttributes attr) {
+		attr.addFlashAttribute("prodTypeCnfg", productConfigService.getProductType(id));
+		return"redirect:/prodConfig/";
+	}
+	
+	@GetMapping("/checkDuplicateConfig")
+	public @ResponseBody String checkDuplicateBrand(@RequestParam("type")String type) {
+		return productConfigService.checkDuplicateType(type);
+	}
+	
 }

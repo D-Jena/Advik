@@ -6,17 +6,25 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <script src="${contextPath}/assets/appJs/validation/common-utils.js"></script>
 <script src="${contextPath}/assets/appJs/validation/AadharVaidator.js"></script> 
+ <link rel="stylesheet" type="text/css" href="${contextPath}/assets/css/text.font.css">
+
 <style>
   #apnd-btn-plus {
     color: green;
   }
+  .my-div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 </style>
 <div class="content">
                 <div class="panel-header bg-primary-gradient">
                     <div class="page-inner py-5">
                         <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
                             <div>
-                                <h2 class="text-white pb-2 fw-bold">Manage Product</h2>
+                                <h2 class="text-white pb-2 fw-bold">Manage Product Configuration</h2>
                             </div>
                             <div class="ml-md-auto py-2 py-md-0">
                                 <a href="stateInit_dashboard.html" class="btn btn-white btn-border btn-round mr-2"><i
@@ -46,7 +54,7 @@
                                             <div class="col-md-12">
                                               <div class="col-md-3">
 												<div class="form-group">
-													<label class="col-sm-12 required" for="text">Product Type Name:</label>
+													<label class="col-sm-12 required medium-text" for="text">Product Categories Name:</label>
 													<div class="col-sm-12">
 														<input type="text" class="form-control" id="prodType" name="prodType" value="${prodTypeCnfg.prodType}"  onchange="checkProdType()" required maxlength="50">
 													</div>
@@ -70,6 +78,7 @@
 													</div>
 												</div>
 										</div>
+										<div class="row col-md-12" ><br></div>
 											<div class="row col-md-12" >
                                             <div class="col-md-12 text-center">
                                                 <div class="btn_wrapper col-sm-12">
@@ -94,12 +103,11 @@
                                     <div class="panel-actions">
                                         <a href="#" class="fa fa-caret-down"></a>
                                     </div>
-                                    <h4 class="card-title">Product Type List</h4>
+                                    <h4 class="card-title">Product Category List</h4>
                                 </div>
 
                                 <div class="card-body">
-                                    <div class="col-md-12">
-
+                                    <div class=" col-md-12">
                                         <table class="table table-bordered mt-2 mb-4">
                                             <thead class="thead-light">
                                                 <tr>

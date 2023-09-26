@@ -158,6 +158,10 @@
 			value="/WEB-INF/views/product/brandConfig.jsp"></put-attribute>
 	</definition>
 	
+	<definition name="site.productConfiguration" extends="layout.base">
+		<put-attribute name="body"
+			value="/WEB-INF/views/product/productConfiguration.jsp"></put-attribute>
+	</definition>
 	<!-- ======================================= Vendor =================================-->
 	<definition name="site.addVendor" extends="layout.base">
 		<put-attribute name="body"
