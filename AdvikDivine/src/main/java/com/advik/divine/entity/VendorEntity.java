@@ -24,12 +24,13 @@ import lombok.Data;
 public class VendorEntity {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
     private Long vendorId;
 
     @Column(name = "name", nullable = false)
     private String vendorName;
 
-    @Column(name = "type", nullable = false)
+    @Column(name = "type")
     private String vendorType;
     
     @Column(name = "mobile", nullable = false)

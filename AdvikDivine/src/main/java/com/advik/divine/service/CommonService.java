@@ -18,6 +18,8 @@ public interface CommonService {
 	String addOrUpdateVendor(VendorModel vm);
 	
 	List<VendorModel> getAllVendor();
+	
+	VendorModel getVendorById(Long id);
 
 	List<StateModel> getAllState();
 

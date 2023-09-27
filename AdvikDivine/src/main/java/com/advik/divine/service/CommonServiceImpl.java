@@ -18,6 +18,7 @@ import com.advik.divine.entity.FinancialYear;
 import com.advik.divine.entity.StateEntity;
 import com.advik.divine.entity.VendorEntity;
 import com.advik.divine.exception.AdvikDivineException;
+import com.advik.divine.model.DistrictModel;
 import com.advik.divine.model.FinancialYearModel;
 import com.advik.divine.model.StateModel;
 import com.advik.divine.model.VendorModel;
@@ -119,8 +120,41 @@ public class CommonServiceImpl implements CommonService{
 
 	@Override
 	public List<VendorModel> getAllVendor() {
+		try {
+			List<VendorEntity> vendorList = vendorRepo.findAll();
+			return vendorList.stream().map(ven -> {
+				VendorModel vm = new VendorModel();
+				StateModel sm = new StateModel();
+				DistrictModel dm = new DistrictModel();
+				vm.setState(sm);
+				vm.setDistrict(dm);
+				BeanUtils.copyProperties(ven, vm);
+				BeanUtils.copyProperties(ven.getState(), vm.getState());
+				BeanUtils.copyProperties(ven.getDistrict(), vm.getDistrict());
+				return vm;
+			}).collect(Collectors.toList());
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new AdvikDivineException("get all village error");
+		}//try-catch
+	}
+	
+	@Override
+	public VendorModel getVendorById(Long id) {
+		try {
+			Optional<VendorEntity> optional= vendorRepo.findById(id);
+			VendorModel ven = new VendorModel();
+			if(optional.isPresent()) {
+				BeanUtils.copyProperties(optional.get(), ven);
+				ven.setDistId(optional.get().getDistrict().getDistId());
+				ven.setStateId(optional.get().getState().getStateId());
+			}
+			return ven;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new AdvikDivineException("get vendor error");
+		}
 		
-		return null;
 	}
 
 	@Override

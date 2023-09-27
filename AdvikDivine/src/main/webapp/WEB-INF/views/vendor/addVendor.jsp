@@ -29,23 +29,24 @@
 							<div class="card full-height">
 								<div class="card-header">
 									 <c:choose>
-										<c:when test="${not empty villageData.villageId}">
-										<h4 class="card-title">Update Vendor</h4></c:when>
+										<c:when test="${false}">
+										<h4 class="card-title">Update Vendor</h4>
+										</c:when>
 										<c:otherwise>
 										<h4 class="card-title">Add Vendor</h4>
 										</c:otherwise>
 									</c:choose> 
 								</div>
 								<div class="card-body">
-									<spring:form action="${contextPath}/common/addNupdateVendor" id="addVendorFrm"	method="post" modelAttribute="vendor">
+									<form action="${contextPath}/common/addNupdateVendor" id="addVendorFrm"	method="post" >
 											<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-												<input type="hidden" name="vendorId" value=""  />
+												<input type="hidden" name="vendorId" value="${vendor.vendorId}" />
 									<div class="row">
 										<div class="col-md-3">
 												<div class="form-group">
 													<label class="col-sm-12 required" for="text">Vendor Name :</label>
 													<div class="col-sm-12">
-														<input type="text" class="form-control form-control-sm" id="villageIdTxt" name="villageName" value="${villageData.villageName}"  onchange="checkSpaces(this)" required maxlength="50">
+														<input type="text" class="form-control form-control-sm" id="vendorName" name="vendorName" value="${vendor.vendorName}"  required maxlength="50">
 													</div>
 												</div>
 											</div>
@@ -53,7 +54,7 @@
 												<div class="form-group">
 													<label class="col-sm-12 required" for="text">Mobile No. :</label>
 													<div class="col-sm-12">
-														<input type="text" class="form-control form-control-sm" id="villageIdTxt" name="villageName" value="${villageData.villageName}"  onchange="checkSpaces(this)" required maxlength="50">
+														<input type="text" class="form-control form-control-sm" id="vMobile" name="mobile" value="${vendor.mobile}" required maxlength="50">
 													</div>
 												</div>
 											</div>
@@ -61,8 +62,8 @@
 													<div class="form-group">
 														<label class="col-md-10 required" for="isActive">Status</label>
 														<div class="col-md-10">
-															<input type="radio" value="true" id="isActive1" name="isActive" ${villageData.isActive eq true ?'checked':''} required="required"> Active &nbsp;&nbsp;
-															<input type="radio" value="false" id="isActive2"  name="isActive" ${villageData.isActive eq false ?'checked':''} required="required"> Inactive 
+															<input type="radio" value="true" id="isActive1" name="isActive" ${vendor.isActive eq true ?'checked':''} required="required"> Active &nbsp;&nbsp;
+															<input type="radio" value="false" id="isActive2"  name="isActive" ${vendor.isActive eq false ?'checked':''} required="required"> Inactive 
 														</div> 
 													</div>
 											</div> 
@@ -72,10 +73,10 @@
 												<div class="form-group">
 													<label class="col-sm-12 required" for="text">State :</label>
 													<div class="col-sm-12">
-														<select name="state.stateId" id="stateId" class="form-control form-control-sm" required="required" onchange="getDistrictsByStateId(this.value)">
+														<select name="stateId" id="stateId" class="form-control form-control-sm" required="required" onchange="getDistrictsByStateId(this.value)">
 							                                 <option value="" >Select</option>
 						                                    <c:forEach items="${stateList}" var="state">
-																<option value="${state.stateId}" ${state.stateId eq villageData.panchayat.block.district.state.stateId?'selected':''}>${state.stateName}</option>
+																<option value="${state.stateId}" ${state.stateId eq vendor.stateId?'selected':''}>${state.stateName}</option>
 															</c:forEach> 
 							                              </select>
 													</div>
@@ -85,9 +86,21 @@
 												<div class="form-group">
 													<label class="col-sm-12 required" for="text">District :</label>
 													<div class="col-sm-12">
-														<spring:select path="distId" id="distId" class="form-control form-control-sm" required="required" >
-														<spring:option value="" >Select</spring:option>
-							                              </spring:select>
+													<c:choose>
+													    <c:when test="${not empty distList}">
+													        <select name="distId" id="distId" class="form-control form-control-sm" required="required">
+													            <option value="0">Select</option>
+													            <c:forEach items="${distList}" var="dist">
+													                <option value="${dist.distId}" ${dist.distId eq vendor.distId ? 'selected' : ''}>${dist.distName}</option>
+													            </c:forEach>
+													        </select>
+													    </c:when>
+													    <c:otherwise>
+													         <select name="distId" id="distId" class="form-control form-control-sm" required="required" >
+																<option value="" >Select</option>
+						                            		</select>
+													    </c:otherwise>
+													</c:choose>	
 													</div>
 												</div>
 											</div>
@@ -95,7 +108,7 @@
 												<div class="form-group">
 													<label class="col-sm-12 required" for="text">Area :</label>
 													<div class="col-sm-12">
-														<input type="text" class="form-control form-control-sm AlphaNumericOnly" id="villageIdTxt" name="villageName" value="${villageData.villageName}"  onchange="checkSpaces(this)" required maxlength="50">
+													<input type="text" class="form-control form-control-sm AlphaNumericOnly" id="vArea" name="area" value="${vendor.area}"  onchange="checkSpaces(this)" required maxlength="50">
 													</div>
 												</div>
 											</div>
@@ -103,7 +116,7 @@
 												<div class="form-group">
 													<label class="col-sm-12 required" for="text">Pin :</label>
 													<div class="col-sm-12">
-														<input type="text" class="form-control form-control-sm NumbersOnly" id="villageIdTxt" name="villageName" value="${villageData.villageName}"  onchange="checkSpaces(this)" required maxlength="50">
+														<input type="text" class="form-control form-control-sm NumbersOnly" id="vPin" name="pin" value="${vendor.pin}"  onchange="checkSpaces(this)" required maxlength="50">
 													</div>
 												</div>
 											</div>
@@ -111,7 +124,15 @@
 													<div class="form-group">
 														<label class="col-sm-12 required" for="text">Landmark :</label>
 														<div class="col-sm-12">
-															<input type="text" class="form-control form-control-sm AlphaNumericOnly" id="villageIdTxt" name="villageName" value="${villageData.villageName}"  onchange="checkSpaces(this)" required maxlength="50">
+															<input type="text" class="form-control form-control-sm AlphaNumericOnly" id="vLandmark" name="landmark" value="${vendor.landmark}"  onchange="checkSpaces(this)" required maxlength="50">
+														</div>
+													</div>
+											</div>
+											<div class="col-md-3">
+													<div class="form-group">
+														<label class="col-sm-12 required" for="text">Vendor type :</label>
+														<div class="col-sm-12">
+															<input type="text" class="form-control form-control-sm AlphaNumericOnly" id="vType" name="vendorType" value="${vendor.vendorType}"  onchange="checkSpaces(this)" required maxlength="50">
 														</div>
 													</div>
 											</div>
@@ -119,7 +140,7 @@
 										<div class="row">
 											<div class="col text-center mt-3">
 												<c:choose>
-													<c:when test="${not empty vendorData}">
+													<c:when test="${not empty vendor}">
 														<input type="button" name="add&ManageVendor" value="Update" id="add&ManageVendor" class="btn btn-success btn-sm" onclick="submitFormData()">&nbsp;&nbsp;
 														<a href="${contextPath}/home/" type="button" class="btn btn-danger btn-sm">Back</a>
 														
@@ -133,12 +154,12 @@
 											</c:choose>
 											</div>
 										</div>
-									</spring:form>
+									</form>
 								</div>
 							</div>
 						</div>
 					</div>
-					<c:if test="${empty  villageData}">
+					<c:if test="${empty vendor}">
 					<div class="row mt-3">
 						<div class="col-md-12">
 							<div class="card full-height">
@@ -152,29 +173,33 @@
 													<tr>
 													    <th style="width: 30px">Sl.No</th>
 													    <th>Vendor Name</th>
+													    <th>Vendor Type</th>
 													    <th>Mobile No.</th>
-													    <th>Status</th>
 													    <th>State</th>
 													    <th>District</th>
 													    <th>Area</th>
 													    <th>Pin</th>
 													    <th>Landmark</th>
+													    <th>Status</th>
 														<th style="width: 30px">Action</th> 													
 													</tr>
 												</thead>
 												<tbody>
-											 		<c:forEach items="${villageList}" var="vil" varStatus="count">
+											 		<c:forEach items="${vendorList}" var="ven" varStatus="count">
 														<tr>
 														    <td>${count.count}</td>
-														    <td>${vil.panchayat.block.district.districtName}</td>
-														    <td>${vil.panchayat.block.blockName}</td>
-														    <td>${vil.panchayat.gpName}</td>
-														    <td>${vil.villageName}</td>
-														    <td>${vil.villageCode}</td>
-														    <td>${vil.isActive eq true ? 'Active': 'InActive'}</td>
+														    <td>${ven.vendorName}</td>
+														    <td>${ven.vendorType}</td>
+														    <td>${ven.mobile}</td>
+														    <td>${ven.state.stateName}</td>
+														    <td>${ven.district.distName}</td>
+														    <td>${ven.area}</td>
+														    <td>${ven.pin}</td>
+														    <td>${ven.landmark}</td>
+														    <td>${ven.isActive eq true ? 'Active': 'InActive'}</td>
 															<td>
 															<button class="btn btn-warning btn-xs" data-toggle="tooltip" title="Edit"
-														    	onclick="editById(${vil.villageId})">
+														    	onclick="editById(${ven.vendorId})">
 																	<i class="fas fa-edit"></i>
 															</button>
 															</td> 													
@@ -196,35 +221,48 @@
 	<input type="hidden" name="id" id="id">
 </form>
 	<script>
-	function submitFormData(){
+		function submitFormData(){
 		
-		var stateName=$("#stateId").val();
+		var stateId=$("#stateId").val();
+		var districId=$("#distId").val();
+		var mobile=$("#vMobile").val();
+		var vendor=$("#vendorName").val();
+		var area=$("#vArea").val();
+		var pin=$("#vPin").val();
+		var landmark=$("#vLandmark").val();
+		var type=$("#vType").val();
 		
-		var districtName=$("#filterdistrictId").val();
-		
-		var blockName=$("#filterblockId").val();
-				
-		var villageName=$("#villageIdTxt").val();
-		
-		if(stateName==""|| stateName=="0"){
+		if(stateId==""|| stateId=="0"){
 			bootbox.alert("Select State ");
 			return false;
 		}
 
-		if(districtName==""|| districtName=="0"){
+		if(districId==""|| districId=="0"){
 			bootbox.alert("Select District ");
 			return false;
 		}
-		if(blockName=="" || blockName=="0" ){
-			bootbox.alert("Select Block ");
+		if(mobile=="" || mobile=="0" ){
+			bootbox.alert("Select Mobile ");
 			return false;
 			}
-		if(gpName=="" || gpName=="0" ){
-			bootbox.alert("Select Panchayat ");
+		if(vendor=="" || vendor=="0" ){
+			bootbox.alert("Select vendor name ");
 			return false;
 			}
-		if(villageName==""){
-			bootbox.alert("Enter Village Name");
+		if(area==""){
+			bootbox.alert("Enter Location");
+			return false;
+			}
+		if(pin==""){
+			bootbox.alert("Enter pin");
+			return false;
+			}
+		if(landmark==""){
+			bootbox.alert("Enter landmark");
+			return false;
+			}
+		if(type==""){
+			bootbox.alert("Enter Vendor type");
 			return false;
 			}
 		if ($('input[name="isActive"]:checked').val() == undefined) {
@@ -233,17 +271,16 @@
 		}else{	
 		bootbox.confirm("Do You  Want To Continue?", function(result) {
 					if (result) {
-						$("#add&ManageVendor").prop('disabled', true);
 						$("#addVendorFrm").submit();
 					}
 				});
 			}
-	} 
+	}  
 	
 	function editById(id){
 		debugger;
 		$("#id").val(id)
-	    $("#formId").attr('action','${contextPath}/mst/demography/village');
+	    $("#formId").attr('action','${contextPath}/common/vendorEdit');
 	    $("#formId").submit();
 	}
 
@@ -254,6 +291,7 @@
 		debugger;
 		$("#distId").empty();
 	    $('<option>').val('').text('-Select-').appendTo("#distId");
+	    var html = '<option>'
 		if (stateId != '') {
 			$.ajax({
 				type: "GET",

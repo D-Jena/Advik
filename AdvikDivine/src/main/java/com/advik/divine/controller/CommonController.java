@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.advik.divine.model.FinancialYearModel;
 import com.advik.divine.model.VendorModel;
 import com.advik.divine.service.CommonService;
+import com.advik.divine.service.DistrictService;
 
 @Controller
 @RequestMapping("/common")
@@ -23,16 +24,28 @@ public class CommonController {
 	@Autowired
 	private CommonService commonService;
 	
+	@Autowired
+	private DistrictService distService;
+	
 	@GetMapping("/vendor")
 	public String vendorPage(Model model) {
 		model.addAttribute("stateList", commonService.getAllState());
-//    	model.addAttribute("vendorList", commonService.getAllVendor());
+    	model.addAttribute("vendorList", commonService.getAllVendor());
+    	model.addAttribute("distList", distService.getAllDist());
 		return"site.addVendor";
+	}
+	
+	@GetMapping("/vendorEdit")
+	public String vendorEdit(@RequestParam("id") Long id,RedirectAttributes attr) {
+    	VendorModel vendor = commonService.getVendorById(id);
+		attr.addFlashAttribute("vendor", vendor);
+		return "redirect:/common/vendor";
 	}
 	
 	@PostMapping("/addNupdateVendor")
     public String handleSbmtBtn(VendorModel vendor, RedirectAttributes attr) {
     	String result = commonService.addOrUpdateVendor(vendor);
+    	System.out.println("CommonController.handleSbmtBtn()");
     	if(result != null)
     		attr.addFlashAttribute("success_msg", result);
     	else 
