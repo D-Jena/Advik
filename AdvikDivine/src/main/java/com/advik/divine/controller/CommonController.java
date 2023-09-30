@@ -23,7 +23,6 @@ public class CommonController {
 
 	@Autowired
 	private CommonService commonService;
-	
 	@Autowired
 	private DistrictService distService;
 	

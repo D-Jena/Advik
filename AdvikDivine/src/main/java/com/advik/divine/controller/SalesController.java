@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/sale")
-public class SaleController {
+public class SalesController {
 
 	@GetMapping("/")
 	public String salePage(Model model) {

@@ -168,6 +168,12 @@
 			value="/WEB-INF/views/vendor/addVendor.jsp"></put-attribute>
 	</definition>
 	
+	<!-- ======================================= Employee =================================-->
+	<definition name="site.addEmployee" extends="layout.base">
+		<put-attribute name="body"
+			value="/WEB-INF/views/employee/addEmployee.jsp"></put-attribute>
+	</definition>
+	
 	<!-- ======================================= Sale =================================-->
 	<definition name="site.addSale" extends="layout.base">
 		<put-attribute name="body"
